@@ -1,4 +1,4 @@
-import type { Movie } from '../types/movie.tsx';
+import type { Movie } from '../types/movie.ts';
 import { tmdbApi } from './tmdbApi.tsx';
 
 export interface FetchMoviesResponse {

@@ -11,8 +11,8 @@ import MovieModal from '../MovieModal/MovieModal.tsx';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage.tsx';
 import { Loader } from '../Loader/Loader.tsx';
 
-import { fetchMovies } from '../../services/movieService.tsx';
-import type { Movie } from '../../types/movie.tsx';
+import { fetchMovies } from '../../services/movieService.ts';
+import type { Movie } from '../../types/movie.ts';
 
 type ModuleWithDefault<T> = { default: T };
 const ReactPaginate = (

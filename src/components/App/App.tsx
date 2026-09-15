@@ -24,20 +24,19 @@ export default function App() {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
 
-  const {
-    data,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useQuery({
-    queryKey: ['movies', query, page],
-    queryFn: () => fetchMovies({ query, page }),
-    enabled: Boolean(query),
-    placeholderData: keepPreviousData,
-  });
+ const {
+  data,
+  isLoading,
+  isError,
+  isSuccess,
+} = useQuery({
+  queryKey: ['movies', query, page],
+  queryFn: () => fetchMovies(query, page),
+  enabled: Boolean(query),
+  placeholderData: keepPreviousData,
+});
 
   const handleSearch = (newQuery: string) => {
-    if (newQuery === query) return;
     setQuery(newQuery);
     setPage(1);
   };
@@ -51,7 +50,7 @@ export default function App() {
   const totalPages = data?.total_pages ?? 0;
   const isEmpty = isSuccess && movies.length === 0;
 
-  // Сповіщення через useEffect щоб уникнути помилок під час рендеру
+  // Сповіщення про відсутність результатів з бекенду
   useEffect(() => {
     if (isEmpty && query) {
       toast('No movies found for your request.', {

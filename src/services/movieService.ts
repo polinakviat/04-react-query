@@ -1,5 +1,5 @@
-import type { Movie } from '../types/movie.ts';
-import { tmdbApi } from './tmdbApi.ts';
+import axios from 'axios';
+import type { Movie } from '../types/movie';
 
 export interface FetchMoviesResponse {
   page: number;
@@ -8,16 +8,26 @@ export interface FetchMoviesResponse {
   total_results: number;
 }
 
-export interface FetchMoviesParams {
-  query?: string;
-  page?: number;
-}
+// Отримуємо Bearer токен із змінних оточення Vite
+const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
 
+const tmdbApi = axios.create({
+  baseURL: 'https://api.themoviedb.org/3',
+  headers: {
+    Authorization: `Bearer ${TMDB_TOKEN}`,
+  },
+});
+
+// Два обов'язкові позиційні параметри: query та page
 export const fetchMovies = async (
-  params: FetchMoviesParams = {}
+  query: string,
+  page: number
 ): Promise<FetchMoviesResponse> => {
   const response = await tmdbApi.get<FetchMoviesResponse>('/search/movie', {
-    params,
+    params: {
+      query,
+      page,
+    },
   });
 
   return response.data;

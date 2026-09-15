@@ -1,5 +1,5 @@
 import type { Movie } from '../types/movie.ts';
-import { tmdbApi } from './tmdbApi.tsx';
+import { tmdbApi } from './tmdbApi.ts';
 
 export interface FetchMoviesResponse {
   page: number;
